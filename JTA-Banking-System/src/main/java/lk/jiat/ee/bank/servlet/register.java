@@ -21,6 +21,7 @@ public class register extends HttpServlet {
          String password =request.getParameter("password");
 
          registerService.registerUser(name, email, password);
+         response.sendRedirect("index.jsp");
     }
 
 }
