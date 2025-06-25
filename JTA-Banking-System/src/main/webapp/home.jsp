@@ -17,7 +17,7 @@
 </head>
 <body>
 <h1>Hello Account ${sessionScope.user}</h1>
-<form method="POST" action="tranfer"></form>
+<form method="POST" action="transfer">
 <table>
     <tr>
         <th>Source Account Number</th>
@@ -34,9 +34,10 @@
 
     <tr>
         <th></th>
-        <td><input type="submit" name="Transfer"></td>
+        <td><input type="submit" value="Transfer"></td>
     </tr>
 </table>
+</form>
 
 </body>
 </html>
