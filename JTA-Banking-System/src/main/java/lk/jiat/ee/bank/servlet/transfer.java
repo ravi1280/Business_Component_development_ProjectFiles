@@ -23,6 +23,8 @@ public class transfer extends HttpServlet {
 
         transferService.transferAmount(sourceAccountNumber, destinationAccountNumber, Double.parseDouble(amount));
 
+        response.sendRedirect("home.jsp");
+
 
     }
 }
