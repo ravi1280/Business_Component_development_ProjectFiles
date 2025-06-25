@@ -2,6 +2,8 @@ package lk.jiat.ee.bank.ejb;
 
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 import lk.jiat.ee.bank.ejb.remote.AccountService;
 import lk.jiat.ee.bank.ejb.remote.TransferService;
 
@@ -12,6 +14,7 @@ public class TransferServiceBean implements TransferService {
     private AccountService accountService;
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void transferAmount(String sourceAccountNumber, String destinationAccountNumber, double amount) {
 
         accountService.debitFromAccount(sourceAccountNumber, amount);
