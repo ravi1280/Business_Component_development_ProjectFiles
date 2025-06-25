@@ -11,7 +11,7 @@ import lk.jiat.ee.bank.ejb.remote.TransferService;
 import java.io.IOException;
 
 @WebServlet("/transfer")
-public class transfer extends HttpServlet {
+public class Transfer extends HttpServlet {
     @EJB
     private TransferService transferService;
 
@@ -22,9 +22,6 @@ public class transfer extends HttpServlet {
         String amount = request.getParameter("amount");
 
         transferService.transferAmount(sourceAccountNumber, destinationAccountNumber, Double.parseDouble(amount));
-
         response.sendRedirect("home.jsp");
-
-
     }
 }
