@@ -11,7 +11,7 @@ import lk.jiat.ee.bank.ejb.remote.LoginService;
 
 import java.io.IOException;
 
-@WebServlet(name = "/login")
+@WebServlet("/login")
 public class login extends HttpServlet {
     @EJB
     private LoginService loginService;
