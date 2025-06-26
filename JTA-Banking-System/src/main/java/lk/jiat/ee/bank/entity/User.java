@@ -11,6 +11,7 @@ import java.util.List;
         @NamedQuery(name = "User.findByEmail",query = "SELECT u FROM User u WHERE u.email=:email"),
         @NamedQuery(name = "User.findByEmailAndPassword",query = "SELECT u FROM User u WHERE u.email=:email AND u.password=:password"),
 })
+@Cacheable
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
