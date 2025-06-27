@@ -1,8 +1,23 @@
 package lk.jiat.ee.timer.servlert;
 
 
+import jakarta.ejb.EJB;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lk.jiat.ee.timer.ejb.TimerSessionBean;
+
+import java.io.IOException;
 
 @WebServlet("/test2")
-public class Test2 {
+public class Test2 extends HttpServlet {
+    @EJB
+    private TimerSessionBean timerBean;
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        timerBean.cancelTimer();
+    }
 }

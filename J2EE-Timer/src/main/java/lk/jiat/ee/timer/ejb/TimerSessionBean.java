@@ -1,23 +1,30 @@
 package lk.jiat.ee.timer.ejb;
 
 import jakarta.annotation.Resource;
-import jakarta.ejb.Stateless;
-import jakarta.ejb.Timeout;
-import jakarta.ejb.TimerConfig;
-import jakarta.ejb.TimerService;
+import jakarta.ejb.*;
 
-@Stateless
+@Singleton
 public class TimerSessionBean {
 
     @Resource
     private TimerService timerService;
 
+//    Timer timer;
+
     public void doTask() {
-        timerService.createTimer(1000,5000,"Clock");
+//        timerService.createIntervalTimer(1000,5000,new TimerConfig());
+//       timer = timerService.createTimer(60000,"Clock");
+        timerService.createTimer(60000, "Clock");
     }
 
     @Timeout
-    public void timeOutTask(){
-        System.out.println("OK");
+    public void timeOutTask(Timer timer) {
+        System.out.println("OK"+timer);
+    }
+
+    public void cancelTimer(){
+//        if(timer != null){
+//            timer.cancel();
+//        }
     }
 }
