@@ -14,6 +14,8 @@
     <cache alias="lk.jiat.ee.bank.entity.User" uses-template="default-cache"/>
     <cache alias="lk.jiat.ee.bank.entity.Account" uses-template="default-cache"/>
 
+    <cache alias="Account-cache" uses-template="default-cache"/>
+
     <cache-template name="default-cache">
         <expiry>
             <ttl unit="minutes">60</ttl>

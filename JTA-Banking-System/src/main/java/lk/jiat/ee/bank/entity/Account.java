@@ -1,6 +1,7 @@
 package lk.jiat.ee.bank.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @NamedQueries({
@@ -9,6 +10,7 @@ import jakarta.persistence.*;
 })
 
 @Cacheable(value=false)
+@org.hibernate.annotations.Cache(region = "Account-cache",usage = CacheConcurrencyStrategy.READ_WRITE)
 
 public class Account {
     public int getId() {
