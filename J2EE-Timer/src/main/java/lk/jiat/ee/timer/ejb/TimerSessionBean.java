@@ -8,27 +8,26 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Singleton
+
 public class TimerSessionBean {
 
     @Resource
     private TimerService timerService;
 
-//    Timer timer;
-
     public Task doTask(long time) {
-//        timerService.createIntervalTimer(1000,5000,new TimerConfig());
-//       timer = timerService.createTimer(60000,"Clock");
-
 
         TimerConfig timerConfig  =new TimerConfig();
         String taskId =UUID.randomUUID().toString();
         Task task = new Task(taskId,"Test Task");
         timerConfig.setInfo(task);
+//        timerConfig.setPersistent(false);
 
-       ScheduleExpression scheduleExpression = new ScheduleExpression();
+        ScheduleExpression scheduleExpression = new ScheduleExpression();
+        scheduleExpression.dayOfWeek("MON-FRI");
+        scheduleExpression.dayOfMonth("MON");
+
+
         timerService.createCalendarTimer(scheduleExpression, timerConfig);
-
-//        timerService.createSingleActionTimer(time, timerConfig);
         return task;
     }
 
