@@ -32,14 +32,17 @@ public class TimerSessionBean {
     }
 
     @Timeout
-    public void timeOutTask(Timer timer) {
+    public void timeOutTask1(Timer timer) {
         Serializable info = timer.getInfo();
         if (info instanceof Task) {
             Task task = (Task) info;
-            System.out.println(task.getTaskName() + " " + task.getTaskId() + "  Task Is Done");
+            System.out.println(task.getTaskName() + " " + task.getTaskId() + "  Task01 Is Done");
 
         }
     }
+
+
+
 
     public void cancelTimer(String taskId) {
 
