@@ -18,7 +18,9 @@ public class Test extends HttpServlet {
     private UserSessionBean userBean;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         userBean.doAction("Ravishka");
+//        userBean.doAction("Ravishka");
     }
 }
