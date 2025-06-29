@@ -20,7 +20,8 @@ public class Test extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        userBean.doAction("Ravishka");
-//        userBean.doAction("Ravishka");
+        String name = userBean.doAction("Ravishka");
+        System.out.println("Interceptor filter name " + name);
+
     }
 }
