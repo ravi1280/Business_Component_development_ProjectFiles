@@ -9,10 +9,16 @@ public class AInterceptor {
 
     @AroundInvoke
     public Object intercept(InvocationContext ic) throws Exception {
+        System.out.println("AIntercept Start");
+
         System.out.println("AInterceptor called intercept method");
         Map<String,Object> contextData =ic.getContextData();
         System.out.println("AInterceptor called intercept method" + contextData);
-        ic.proceed();
-        return null;
+
+        Object proceed = ic.proceed();
+        System.out.println("AIntercept proceed : " + proceed);
+
+        System.out.println("AIntercept End");
+        return proceed;
     }
 }
