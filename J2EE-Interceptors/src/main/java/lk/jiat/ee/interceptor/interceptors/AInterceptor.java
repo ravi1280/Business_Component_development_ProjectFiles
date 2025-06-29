@@ -1,10 +1,16 @@
 package lk.jiat.ee.interceptor.interceptors;
 
+import jakarta.annotation.Priority;
 import jakarta.interceptor.AroundInvoke;
+import jakarta.interceptor.Interceptor;
 import jakarta.interceptor.InvocationContext;
+import lk.jiat.ee.interceptor.annotation.Login;
 
 import java.util.Map;
 
+@Interceptor
+@Login
+@Priority(2)
 public class AInterceptor {
 
     @AroundInvoke
