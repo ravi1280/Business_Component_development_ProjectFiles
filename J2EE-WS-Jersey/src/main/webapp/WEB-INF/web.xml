@@ -4,17 +4,17 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     
-<!--    <servlet>-->
-<!--        <servlet-name>jersey-servlet</servlet-name>-->
-<!--        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>-->
-<!--        <init-param>-->
-<!--            <param-name>jakarta.ws.rs.Application</param-name>-->
-<!--            <param-value>lk.jiat.ee.jersey.config.AppConfig</param-value>-->
-<!--        </init-param>-->
-<!--    </servlet>-->
+    <filter>
+        <filter-name>jersey-servlet</filter-name>
+        <filter-class>org.glassfish.jersey.servlet.ServletContainer</filter-class>
+        <init-param>
+            <param-name>jakarta.ws.rs.Application</param-name>
+            <param-value>lk.jiat.ee.jersey.config.AppConfig</param-value>
+        </init-param>
+    </filter>
 
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>jersey-servlet</servlet-name>-->
-<!--        <url-pattern>/api/v1/*</url-pattern>-->
-<!--    </servlet-mapping>-->
+    <filter-mapping>
+        <filter-name>jersey-servlet</filter-name>
+        <url-pattern>/api/v1/*</url-pattern>
+    </filter-mapping>
 </web-app>
