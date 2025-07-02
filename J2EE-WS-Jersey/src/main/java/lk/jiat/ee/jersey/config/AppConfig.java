@@ -12,6 +12,8 @@ public class AppConfig extends ResourceConfig {
         packages("lk.jiat.ee.jersey.middleware");
 
         register(JspMvcFeature.class);
+        register(DependencyBinder.class);
+
         property(JspMvcFeature.TEMPLATE_BASE_PATH, "/WEB-INF/views/");
     }
 }
