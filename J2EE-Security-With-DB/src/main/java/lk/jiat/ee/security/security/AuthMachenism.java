@@ -4,9 +4,11 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
 import jakarta.security.enterprise.AuthenticationStatus;
+import jakarta.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
 import jakarta.security.enterprise.authentication.mechanism.http.AutoApplySession;
 import jakarta.security.enterprise.authentication.mechanism.http.HttpAuthenticationMechanism;
 import jakarta.security.enterprise.authentication.mechanism.http.HttpMessageContext;
+import jakarta.security.enterprise.identitystore.CredentialValidationResult;
 import jakarta.security.enterprise.identitystore.IdentityStore;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -48,7 +50,21 @@ public class AuthMachenism implements HttpAuthenticationMechanism {
         if (isWhitelisted(path2)) {
             return Context.doNothing(); //No need Authenticate
         }
-        System.out.println("Auth Parameters" +Context.getAuthParameters());
+        AuthenticationParameters parameters=Context.getAuthParameters();
+        if(parameters.getCredential() !=null){
+           CredentialValidationResult result = identityStore.validate(parameters.getCredential());
+           if(result.getStatus() == CredentialValidationResult.Status.VALID){
+               return Context.notifyContainerAboutLogin(result);
+           }else {
+               return Context.responseUnauthorized();
+           }
+
+        }
+        if(Context.isProtected()){
+            return AuthenticationStatus.SEND_CONTINUE;
+        }
+
+        System.out.println("Auth Parameters" +parameters);
         return Context.responseUnauthorized();
     }
 }
