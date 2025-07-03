@@ -84,7 +84,6 @@ public class HomeController {
         //Many files
         files.getParent().getBodyParts().forEach(part->{
 
-
             InputStream is = part.getEntityAs(InputStream.class);
 
             String fileName02 = files.getContentDisposition().getFileName();
@@ -95,8 +94,8 @@ public class HomeController {
                 int read = 0;
                 byte[] buffer = new byte[1024];
                 String realPath = servletContext.getRealPath("/");
-                java.nio.file.Path path = Paths.get(realPath+"/upload");
-                if(!Files.exists(path)){
+                java.nio.file.Path path = Paths.get(realPath + "/upload");
+                if (!Files.exists(path)) {
                     try {
                         Files.createDirectory(path);
                     } catch (IOException e) {
@@ -105,7 +104,7 @@ public class HomeController {
                 }
 
                 FileOutputStream fileOutputStream =
-                        new FileOutputStream(new File(path+"/" + System.currentTimeMillis() + "." + FileExtension02));
+                        new FileOutputStream(new File(path + "/" + System.currentTimeMillis() + "." + FileExtension02));
 
                 while ((read = is.read(buffer)) != -1) {
                     fileOutputStream.write(buffer, 0, read);
@@ -114,12 +113,12 @@ public class HomeController {
                 Thread.sleep(1000);
                 fileOutputStream.flush();
                 fileOutputStream.close();
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
         });
 
 
