@@ -23,40 +23,56 @@ import java.util.Set;
 @AutoApplySession
 @ApplicationScoped
 public class AuthMechanism implements HttpAuthenticationMechanism {
-    @Inject
-    private IdentityStore identityStore;
 
+    @Inject
+    private AppIdentityStore identityStore;
+
+    private static final Set<String> WHITELIST = Set.of(
+            "/login",
+            "/register",
+            "/auth/login",
+            "/auth/register",
+            "/public"
+    );
+
+
+    private boolean isWhitelisted(String path) {
+        return WHITELIST.stream().anyMatch(path::startsWith);
+    }
 
     @Override
-    public AuthenticationStatus validateRequest(HttpServletRequest Request,
-                                                HttpServletResponse Response,
+    public AuthenticationStatus validateRequest(HttpServletRequest request,
+                                                HttpServletResponse response,
                                                 HttpMessageContext context) throws AuthenticationException {
 
+        String path = request.getServletPath();
+        System.out.println("path: " + path);
+//        if (isWhitelisted(path)) {
+//            return context.doNothing(); // No authentication needed
+//        }
 
-        AuthenticationParameters parameters = context.getAuthParameters();
-        System.out.println("getAuthParams cc ::"+parameters.getCredential());
+        AuthenticationParameters authParameters = context.getAuthParameters();
+        System.out.println(authParameters.getCredential());
 
-        if(parameters.getCredential() !=null){
-            CredentialValidationResult result = identityStore.validate(parameters.getCredential());
-            System.out.println(result);
-           if(result.getStatus() == CredentialValidationResult.Status.VALID){
-               return context.notifyContainerAboutLogin(result);
-           }else {
-               return AuthenticationStatus.SEND_FAILURE;
-           }
-
-        }
-
-        if(context.isProtected()){
-            try {
-                Response.sendRedirect(Request.getContextPath()+"/login.jsp");
-                return AuthenticationStatus.SEND_CONTINUE;
-            } catch (IOException e) {
-                throw new RuntimeException("Error sending redirect to login page", e);
+        if (authParameters.getCredential() != null) {
+            CredentialValidationResult result = identityStore.validate(authParameters.getCredential());
+            if (result.getStatus() == CredentialValidationResult.Status.VALID) {
+                return context.notifyContainerAboutLogin(result);
+            } else {
+                return AuthenticationStatus.SEND_FAILURE;
             }
         }
 
-        System.out.println("Auth Parameters" +parameters);
-        return context.responseUnauthorized();
+
+        if (context.isProtected()) {
+            try {
+                response.sendRedirect(request.getContextPath()+"/login.jsp");
+                return AuthenticationStatus.SEND_CONTINUE;
+            } catch (IOException e) {
+                throw new RuntimeException("Redirect to login failed", e);
+            }
+        }
+
+        return context.doNothing();
     }
 }
