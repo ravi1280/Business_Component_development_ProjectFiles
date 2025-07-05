@@ -1,5 +1,8 @@
 package lk.jiat.ee.security.security;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
@@ -13,12 +16,14 @@ import jakarta.security.enterprise.identitystore.CredentialValidationResult;
 import jakarta.security.enterprise.identitystore.IdentityStore;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lk.jiat.ee.security.util.JWTUtil;
 
 import java.io.IOException;
+import java.net.http.HttpHeaders;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-//UsernamePasswordCredential fake = new UsernamePasswordCredential("admin", "123");
-//CredentialValidationResult result = identityStore.validate(fake);
 
 @AutoApplySession
 @ApplicationScoped
@@ -46,11 +51,24 @@ public class AuthMechanism implements HttpAuthenticationMechanism {
                                                 HttpServletResponse response,
                                                 HttpMessageContext context) throws AuthenticationException {
 
-        String path = request.getServletPath();
-        System.out.println("path: " + path);
-//        if (isWhitelisted(path)) {
-//            return context.doNothing(); // No authentication needed
-//        }
+
+       String authHeader = request.getHeader("Authorization");
+       if (authHeader != null && authHeader.startsWith("Bearer ")) {
+           try {
+               String token = authHeader.substring(7);
+               Claims claimsJws= JWTUtil.parseToken(token).getPayload();
+               String username = claimsJws.getSubject();
+               List roles =claimsJws.get("roles",List.class);
+
+               CredentialValidationResult result = new CredentialValidationResult(username,new HashSet<>(roles));
+               return context.notifyContainerAboutLogin(result);
+           } catch (JwtException e) {
+             return context.responseUnauthorized();
+           }
+
+
+       }
+
 
         AuthenticationParameters authParameters = context.getAuthParameters();
         System.out.println(authParameters.getCredential());
