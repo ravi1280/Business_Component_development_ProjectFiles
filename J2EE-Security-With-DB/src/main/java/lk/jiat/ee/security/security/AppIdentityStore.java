@@ -21,20 +21,18 @@ public class AppIdentityStore implements IdentityStore {
 
     @Override
     public CredentialValidationResult validate(Credential credential) {
-        System.out.println("credential "+credential);
+        System.out.println("validate");
+        if (credential instanceof UsernamePasswordCredential) {
+            UsernamePasswordCredential upc = (UsernamePasswordCredential) credential;
 
-        if(credential instanceof UsernamePasswordCredential){
-            UsernamePasswordCredential upc = (UsernamePasswordCredential)credential;
-            System.out.println("upc "+upc);
-          boolean validate =  loginService.validateUser(upc.getCaller(), upc.getPasswordAsString());
-          if(validate){
-             Set<String> roles = loginService.getRoles(upc.getCaller());
-             return new  CredentialValidationResult(upc.getCaller(),roles);
+            if (loginService.validateUser(upc.getCaller(), upc.getPasswordAsString())) {
+                Set<String> roles = loginService.getRoles(upc.getCaller());
 
-          }
+                return new CredentialValidationResult(upc.getCaller(), roles);
 
-
+            }
         }
+
         return CredentialValidationResult.INVALID_RESULT;
     }
 }
