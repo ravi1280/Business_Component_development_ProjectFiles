@@ -8,7 +8,7 @@
     <artifactId>J2EE-Security-With-DB</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
-    <name>J2EE-Security-With-DB</name>
+    <name>j2ee_security_db</name>
 
 
     <properties>

@@ -17,32 +17,23 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
-
     @Inject
     private SecurityContext securityContext;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("doPost");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        System.out.println("username: " + username + " password: " + password);
-
-
 
         AuthenticationParameters parameters =
-                AuthenticationParameters.withParams()
-                        .credential(new UsernamePasswordCredential(username, password));
-
-        System.out.println("UsernamePasswordCredential parameters: " + parameters);
+                AuthenticationParameters.withParams().
+                        credential(new UsernamePasswordCredential(username, password));
 
         AuthenticationStatus status = securityContext.authenticate(request, response, parameters);
-        System.out.println("AuthenticationStatus "+status);
-
-        if(status == AuthenticationStatus.SUCCESS){
-            response.sendRedirect(request.getContextPath()+"/index.jsp");
-        }else {
-            response.sendRedirect(request.getContextPath()+"/login.jsp");
+        if (status == AuthenticationStatus.SUCCESS) {
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
         }
 
     }
