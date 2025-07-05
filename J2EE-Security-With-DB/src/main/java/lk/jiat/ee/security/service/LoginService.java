@@ -16,6 +16,7 @@ public class LoginService {
 
     public boolean validateUser(String username, String password) {
        User user = em.find(User.class, username);
+        System.out.println("username"+username+"password"+password);
        return user != null && user.getPassword().equals(password);
     }
 
