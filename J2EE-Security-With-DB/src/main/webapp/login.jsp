@@ -14,7 +14,7 @@
 
 <h1>Login</h1>
 
-<form method="POST" action="${pageContext.request.contextPath}login">
+<form method="POST" action="${pageContext.request.contextPath}/login">
     <table>
         <tr>
             <th>Username</th>
