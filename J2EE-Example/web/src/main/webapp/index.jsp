@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ravis
@@ -12,7 +13,15 @@
 </head>
 <body>
 <h1>Home Page !</h1>
-<a href="${pageContext.request.contextPath}/register.jsp">Register</a>
-<a href="${pageContext.request.contextPath}/login.jsp">Login</a>
+<c:if test="${empty pageContext.request.userPrincipal}">
+    <a href="${pageContext.request.contextPath}/register.jsp">Register</a>
+    <a href="${pageContext.request.contextPath}/login.jsp">Login</a>
+
+</c:if>
+
+<c:if test="${not empty pageContext.request.userPrincipal}">
+    <a href="${pageContext.request.contextPath}/logout">Log Out</a>
+
+</c:if>
 </body>
 </html>
