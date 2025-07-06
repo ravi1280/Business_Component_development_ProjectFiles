@@ -1,13 +1,19 @@
-package lk.jiat.ee.ejb.model;
+package lk.jiat.ee.core.model;
 
 
 import jakarta.persistence.*;
 
-import javax.management.relation.Role;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-public class User {
+@NamedQueries({
+        @NamedQuery(name = "User.FindByEmail", query = "select u from User u where u.email=:email"),
+        @NamedQuery(name = "User.FindByEmailAndPassword", query = "select u from User u where u.email=:email and u.password=:password"),
+//        @NamedQuery(name = "User.FindByEmail", query = "select u from User u where u.email= ?1"),
+
+})
+public class User implements Serializable {
     public long getId() {
         return id;
     }
@@ -68,4 +74,14 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserType userType = UserType.USER;
+
+    public User() {
+    }
+
+    public User(String name, String contact, String email, String password) {
+        this.name = name;
+        this.contact = contact;
+        this.email = email;
+        this.password = password;
+    }
 }
