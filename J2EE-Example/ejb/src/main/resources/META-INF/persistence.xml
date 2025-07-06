@@ -3,7 +3,7 @@
     <persistence-unit name="AppPU" transaction-type="JTA">
         <jta-data-source>j2ee_jdbc_example</jta-data-source>
 
-        <class>lk.jiat.ee.ejb.model.User</class>
+        <class>lk.jiat.ee.core.model.User</class>
 
         <properties>
             <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
