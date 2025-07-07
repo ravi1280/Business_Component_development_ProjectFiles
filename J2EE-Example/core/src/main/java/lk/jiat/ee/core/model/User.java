@@ -60,9 +60,27 @@ public class User implements Serializable {
         return userType;
     }
 
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+
     public void setUserType(UserType userType) {
         this.userType = userType;
     }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -70,12 +88,14 @@ public class User implements Serializable {
     private String contact;
     @Column(unique = true)
     private String email;
+    private String verificationCode;
     private String password;
-
-
 
     @Enumerated(EnumType.STRING)
     private UserType userType = UserType.USER;
+
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.INACTIVE;
 
     public User() {
     }
