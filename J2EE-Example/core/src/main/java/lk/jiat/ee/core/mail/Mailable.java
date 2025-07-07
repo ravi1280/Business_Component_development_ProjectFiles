@@ -7,6 +7,7 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lk.jiat.ee.core.provider.MailServiceProvider;
+import lk.jiat.ee.core.util.Env;
 
 public abstract class Mailable implements Runnable {
     private MailServiceProvider mailserviceprovider;
@@ -19,7 +20,7 @@ public abstract class Mailable implements Runnable {
         try {
             Session session = Session.getInstance(mailserviceprovider.getProperties(),mailserviceprovider.getAuthenticator());
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("zoroindraji@gmail.com"));
+            message.setFrom(new InternetAddress(Env.getProperty("app.email")));
             build(message);
             Transport.send(message);
 
