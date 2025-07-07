@@ -13,6 +13,8 @@ import java.io.Serializable;
 //        @NamedQuery(name = "User.FindByEmail", query = "select u from User u where u.email= ?1"),
 
 })
+
+@Cacheable(false)
 public class User implements Serializable {
     public long getId() {
         return id;
