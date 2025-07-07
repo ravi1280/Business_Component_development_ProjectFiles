@@ -9,9 +9,9 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>ejb</artifactId>
+    <artifactId>auth</artifactId>
     <packaging>ejb</packaging>
-    <name>J2EE-Example-Ejb</name>
+    <name>J2EE-Example-Auth-Ejb</name>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
