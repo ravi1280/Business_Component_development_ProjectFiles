@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lk.jiat.ee.core.exception.LoginFailedException;
 import lk.jiat.ee.core.service.UserService;
 import lk.jiat.ee.core.util.Encryption;
 
@@ -44,8 +45,11 @@ public class Login extends HttpServlet {
 
         if (status == AuthenticationStatus.SUCCESS) {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
+
         } else {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            throw new LoginFailedException(" Invalid email or password");
+
+//            response.sendRedirect(request.getContextPath() + "/login.jsp");
         }
 
     }
