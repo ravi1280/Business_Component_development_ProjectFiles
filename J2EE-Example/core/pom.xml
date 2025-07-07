@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>core</artifactId>
+    <name>J2EE-Example-Core</name>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -29,5 +30,8 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+    <build>
+        <finalName>${project.name}</finalName>
+    </build>
 
 </project>
