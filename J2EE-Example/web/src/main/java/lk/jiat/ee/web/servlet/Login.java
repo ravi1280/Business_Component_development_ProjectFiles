@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.jiat.ee.core.service.UserService;
+import lk.jiat.ee.core.util.Encryption;
 
 import java.io.IOException;
 
@@ -28,11 +29,13 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-
         System.out.println("Email: " + email+" Password: " + password);
 
+        String encryptPassword = Encryption.encrypt(password);
+        System.out.println("Encrypted password: " + encryptPassword);
+
         AuthenticationParameters parameters = AuthenticationParameters.withParams()
-                .credential(new UsernamePasswordCredential(email, password));
+                .credential(new UsernamePasswordCredential(email, Encryption.encrypt(password)));
 
         System.out.println("parameters: " + parameters);
 
