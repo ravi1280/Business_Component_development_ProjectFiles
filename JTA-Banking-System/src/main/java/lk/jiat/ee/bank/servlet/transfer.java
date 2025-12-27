@@ -11,7 +11,7 @@ import lk.jiat.ee.bank.ejb.remote.TransferService;
 import java.io.IOException;
 
 @WebServlet("/transfer")
-public class Transfer extends HttpServlet {
+public class transfer extends HttpServlet {
     @EJB
     private TransferService transferService;
 

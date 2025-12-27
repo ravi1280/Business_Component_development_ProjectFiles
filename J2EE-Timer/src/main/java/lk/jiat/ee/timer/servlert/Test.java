@@ -21,25 +21,27 @@ public class Test extends HttpServlet {
     @EJB
     private TaskSessionBean sessionBean;
 
-    @EJB
-    private TimerSessionBean timerBean;
+//    @EJB
+//    private TimerSessionBean timerBean;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-//       Future<String> doTask =sessionBean.doTask();
-//        try {
-//           String s = doTask.get();
-//           response.getWriter().println(s);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        } catch (ExecutionException e) {
-//            throw new RuntimeException(e);
-//        }
+       Future<String> doTask =sessionBean.doTask();
+        try {
+           String s = doTask.get();
+           response.getWriter().println(s);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
 
-       Task task = timerBean.doTask(10000);
-        System.out.println(" Task Name : " +task.getTaskName()+" ,  Task ID :" + task.getTaskId() );
-        request.getSession().setAttribute("task", task);
+        System.out.println("doGet");
+
+//       Task task = timerBean.doTask(10000);
+//        System.out.println(" Task Name : " +task.getTaskName()+" ,  Task ID :" + task.getTaskId() );
+//        request.getSession().setAttribute("task", task);
     }
 }

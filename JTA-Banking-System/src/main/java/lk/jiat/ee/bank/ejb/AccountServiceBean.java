@@ -16,7 +16,7 @@ public class AccountServiceBean implements AccountService {
     private EntityManager em;
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
+
     public void creditToAccount(String accountNumber, double amount) {
         try {
             Account account = em.createNamedQuery("Account.findByAccountNo", Account.class)

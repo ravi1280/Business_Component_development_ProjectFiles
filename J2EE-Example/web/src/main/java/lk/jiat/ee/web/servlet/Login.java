@@ -47,9 +47,7 @@ public class Login extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
 
         } else {
-            throw new LoginFailedException(" Invalid email or password");
-
-//            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
         }
 
     }

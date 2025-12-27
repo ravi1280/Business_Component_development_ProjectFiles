@@ -86,7 +86,7 @@ public class User implements Serializable {
     private long id;
     private String name;
     private String contact;
-    @Column(unique = true)
+        @Column(unique = true)
     private String email;
     private String verificationCode;
     private String password;

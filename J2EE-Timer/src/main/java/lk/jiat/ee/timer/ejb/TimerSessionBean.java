@@ -8,13 +8,13 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Singleton
-
 public class TimerSessionBean {
 
     @Resource
     private TimerService timerService;
 
     public Task doTask(long time) {
+        System.out.println("doTask");
 
         TimerConfig timerConfig  =new TimerConfig();
         String taskId =UUID.randomUUID().toString();

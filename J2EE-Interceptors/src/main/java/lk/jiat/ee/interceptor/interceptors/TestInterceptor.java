@@ -24,6 +24,7 @@ public class TestInterceptor {
         Constructor<?> constructor= ic.getConstructor();
         System.out.println("TestIntercept constructor : " + constructor);
     }
+
     @AroundInvoke
     public Object intercept(InvocationContext ic) throws Exception {
         System.out.println("TestIntercept Start");

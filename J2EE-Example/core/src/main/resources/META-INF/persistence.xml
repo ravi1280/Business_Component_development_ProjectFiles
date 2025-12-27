@@ -8,6 +8,8 @@
 
         <properties>
             <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
+            <property name="jakarta.persistence.sharedCache.mode" value="NONE"/>
+            <property name="eclipselink.cache.shared.default" value="false"/>
         </properties>
 
     </persistence-unit>
